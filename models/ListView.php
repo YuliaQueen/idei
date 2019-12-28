@@ -15,7 +15,7 @@ class ListView extends Product
     public function rules()
     {
         return [
-            [['date','name', 'content', 'price', 'category'], 'safe']
+            [['date','name', 'content', 'price', 'category', 'category_id'], 'safe']
         ];
     }
 
@@ -38,7 +38,7 @@ class ListView extends Product
             'name' => $this->name,
             'content' => $this->content,
             'price' => $this->price,
-            'category' => $this->getCategory()->all(),
+            'category' => $this->category_id,
         ]);
 
         $query->orderBy('date DESC');

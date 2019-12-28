@@ -10,6 +10,8 @@ $this->title = 'Супер крутой список покупок';
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+use app\models\Product;
+use app\models\Category;
 
 ?>
 
@@ -38,14 +40,15 @@ use yii\helpers\ArrayHelper;
                         'attribute' => 'category',
                         'format' => 'raw',
                         'value' => 'category.name',
-                        'filter' => \yii\helpers\ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),
-                        'filterInputOptions' => ['class' => 'form-control form-control-sm']
+                        'filter' => \yii\helpers\ArrayHelper::map(\app\models\Product::find()->all(), 'category_id', 'category.name'),
+                        'filterInputOptions' => array('class' => 'form-control form-control-sm')
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{update} {delete}',
                     ]
                 ]
+
             ]) ?>
         </div>
 
