@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "category".
  *
@@ -29,9 +27,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id'], 'integer'],
             [['name'], 'required'],
-            [['name', 'keywords', 'description'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -42,10 +39,8 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent_id' => 'Parent ID',
-            'name' => 'Name',
-            'keywords' => 'Keywords',
-            'description' => 'Description',
+            'name' => 'Категория',
         ];
     }
+
 }

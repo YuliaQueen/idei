@@ -8,16 +8,13 @@ use Yii;
  * This is the model class for table "product".
  *
  * @property int $id
- * @property int $category_id
+ * @property int|null $category_id
+ * @property string|null $date
  * @property string $name
  * @property string|null $content
  * @property float $price
- * @property string|null $keywords
- * @property string|null $description
- * @property string|null $img
- * @property string $hit
- * @property string $new
- * @property string $sale
+ *
+ * @property string $category
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -35,11 +32,13 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'name'], 'required'],
             [['category_id'], 'integer'],
-            [['content', 'hit', 'new', 'sale'], 'string'],
+            [['date', 'category'], 'safe'],
+            [['name'], 'required'],
+            [['content'], 'string'],
             [['price'], 'number'],
-            [['name', 'keywords', 'description', 'img'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -51,15 +50,21 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'category_id' => 'Категория',
-            'name' => 'Название товара',
-            'content' => 'Описание товара',
-            'price' => 'Цена в $',
-            'keywords' => 'Keywords',
-            'description' => 'Description',
-            'img' => 'Img',
-            'hit' => 'Hit',
-            'new' => 'New',
-            'sale' => 'Sale',
+            'date' => 'Дата',
+            'name' => 'Название',
+            'content' => 'Описание',
+            'price' => 'Цена USD',
+            'category' => 'Категория'
         ];
     }
+
+    /**
+     * @return yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+
 }

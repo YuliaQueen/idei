@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use app\models\ListView;
+use app\models\Product;
 use backend\models\UserSearch;
+use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -71,6 +73,34 @@ class SiteController extends Controller
             'dataProvider' => $dataProvider,
         ]);
 
+    }
+
+    public function actionCreate()
+    {
+        $model = new Product();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('create', ['model' => $model]);
+    }
+
+    public function actionUpdate($id)
+    {
+        $model = Product::findOne(['id' => $id]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('update', ['model' => $model]);
+    }
+
+    public function actionDelete($id)
+    {
+        Product::findOne($id)->delete();
+        return $this->redirect('index');
     }
 
     /**

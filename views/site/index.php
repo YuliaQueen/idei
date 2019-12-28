@@ -4,10 +4,12 @@
 /* @var $searchModel app\models\ListView */
 /* @var $dataProvider ActiveDataProvider */
 
-$this->title = 'My Yii Application';
+$this->title = 'Супер крутой список покупок';
+
 
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 ?>
 
@@ -28,9 +30,17 @@ use yii\helpers\Html;
                 'filterModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'columns' => [
+                    'date',
                     'name',
                     'content',
                     'price',
+                    [
+                        'attribute' => 'category',
+                        'format' => 'raw',
+                        'value' => 'category.name',
+                        'filter' => \yii\helpers\ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),
+                        'filterInputOptions' => ['class' => 'form-control form-control-sm']
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{update} {delete}',

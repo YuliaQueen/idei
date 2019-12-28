@@ -6,16 +6,19 @@ namespace app\models;
 
 use yii\data\ActiveDataProvider;
 use app\models\Product;
+use app\models\Category;
 
 class ListView extends Product
 {
+    public $category;
 
     public function rules()
     {
         return [
-            [['name', 'content', 'price'], 'safe']
+            [['date','name', 'content', 'price', 'category'], 'safe']
         ];
     }
+
 
     public function search($params)
     {
@@ -31,16 +34,26 @@ class ListView extends Product
         }
 
         $query->andFilterWhere([
+            'date' => $this->date,
             'name' => $this->name,
             'content' => $this->content,
             'price' => $this->price,
+            'category' => $this->getCategory()->all(),
         ]);
+
+        $query->orderBy('date DESC');
+
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;
+
+
     }
 
 
+
+
 }
+
