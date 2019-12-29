@@ -37,10 +37,10 @@ use app\models\Category;
                     'content',
                     'price',
                     [
-                        'attribute' => 'category',
-                        'format' => 'raw',
+                        'attribute' => 'category_id',
+                        'format' => 'html',
                         'value' => 'category.name',
-                        'filter' => \yii\helpers\ArrayHelper::map(\app\models\Product::find()->all(), 'category_id', 'category.name'),
+                        'filter' => \yii\helpers\ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),
                         'filterInputOptions' => array('class' => 'form-control form-control-sm')
                     ],
                     [

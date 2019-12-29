@@ -5,23 +5,24 @@ namespace app\models;
 
 
 use yii\data\ActiveDataProvider;
-use app\models\Product;
-use app\models\Category;
+
+
 
 class ListView extends Product
 {
-    public $category;
+
 
     public function rules()
     {
         return [
-            [['date','name', 'content', 'price', 'category', 'category_id'], 'safe']
+            [['date', 'name', 'content', 'price', 'category', 'category_id'], 'safe']
         ];
     }
 
 
     public function search($params)
     {
+
         $query = static::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -38,8 +39,10 @@ class ListView extends Product
             'name' => $this->name,
             'content' => $this->content,
             'price' => $this->price,
-            'category' => $this->category_id,
+            'category_id' => $this->category_id
         ]);
+
+
 
         $query->orderBy('date DESC');
 
@@ -47,12 +50,11 @@ class ListView extends Product
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'content', $this->content]);
 
+
         return $dataProvider;
 
 
     }
-
-
 
 
 }

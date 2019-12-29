@@ -14,10 +14,11 @@ use Yii;
  * @property string|null $content
  * @property float $price
  *
- * @property string $category
+ * @property Category $category
  */
 class Product extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */

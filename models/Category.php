@@ -43,4 +43,11 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function categoryList()
+    {
+        return static::find()->asArray()->one();
+
+    }
+
+
 }
