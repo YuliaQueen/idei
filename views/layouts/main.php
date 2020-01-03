@@ -53,7 +53,8 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
+            ['label' => 'Регистрация', 'url' => ['/site/signup']]
         ],
     ]);
     NavBar::end();

@@ -103,6 +103,11 @@ class SiteController extends Controller
         return $this->redirect('index');
     }
 
+    public function actionSignup()
+    {
+        $this->render('signup');
+    }
+
     /**
      * Login action.
      *

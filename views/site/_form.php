@@ -1,7 +1,7 @@
 <?php
 
-use app\models\Category;
-use kartik\datetime\DateTimePicker;
+use dosamigos\tinymce\TinyMce;
+use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -19,22 +19,29 @@ $params = [
 
 <?php $form = \yii\widgets\ActiveForm::begin() ?>
 
-<?= $form->field($model, 'date')->widget(DateTimePicker::className(),[
-    'name' => 'dp_1',
-    'type' => DateTimePicker::TYPE_INPUT,
-    'options' => ['placeholder' => 'Ввод даты/времени...'],
-//    'convertFormat' => true,
-    'value'=> date("d.m.Y",(integer) $model->date),
+<?= $form->field($model, 'date')->widget(DatePicker::ClassName(), [
+    'name' => 'check_issue_date',
+    'value' => date("d.m.Y", (integer)$model->date),
+    'options' => ['placeholder' => 'Выбрать дату ...'],
     'pluginOptions' => [
-//        'format' => 'dd.MM.yyyy',
-        'autoclose'=>true,
-        'weekStart'=>1, //неделя начинается с понедельника
-        'startDate' => '01.05.2015 00:00', //самая ранняя возможная дата
-        'todayBtn'=>true, //снизу кнопка "сегодня"
+        'todayHighlight' => true
     ]
 ]); ?>
 <?= $form->field($model, 'name')->textInput() ?>
-<?= $form->field($model, 'content')->textInput() ?>
+
+<?php echo $form->field($model, 'content')->widget(TinyMce::className(), [
+    'options' => ['rows' => 12],
+    'language' => 'ru',
+    'clientOptions' => [
+        'plugins' => [
+            'advlist autolink lists link charmap  print hr preview pagebreak',
+            'searchreplace wordcount textcolor visualblocks visualchars code fullscreen nonbreaking',
+            'save insertdatetime media table contextmenu template paste image'
+        ],
+        'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+    ]
+]) ?>
+
 <?= $form->field($model, 'category_id')->dropDownList($items, $params) ?>
 
 <?= $form->field($model, 'price')->textInput() ?>

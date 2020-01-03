@@ -9,9 +9,6 @@ $this->title = 'Супер крутой список покупок';
 
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
-use app\models\Product;
-use app\models\Category;
 
 ?>
 
@@ -34,7 +31,11 @@ use app\models\Category;
                 'columns' => [
                     'date',
                     'name',
-                    'content',
+                    [
+                        'attribute' => 'content',
+                        'format' => 'raw',
+                        'value' => Html::decode('content'),
+                    ],
                     'price',
                     [
                         'attribute' => 'category_id',
