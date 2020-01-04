@@ -42,7 +42,7 @@ use yii\helpers\Html;
                         'format' => 'html',
                         'value' => 'category.name',
                         'filter' => \yii\helpers\ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),
-                        'filterInputOptions' => array('class' => 'form-control form-control-sm')
+                        'filterInputOptions' => ['class' => 'form-control form-control-sm']
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
